@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { client } from "../client";
-import { BalanceListDTO } from "./app.dto";
+import { BalanceListDTO, ReceiveDTO } from "./app.dto";
 
 const getBalanceList = async (
   params: BalanceListDTO,
@@ -8,4 +8,8 @@ const getBalanceList = async (
   return await client.get("balance", { params: params });
 };
 
-export { getBalanceList };
+const receive = async (reqBody: ReceiveDTO): Promise<AxiosResponse> => {
+  return await client.post("receive", reqBody);
+};
+
+export { getBalanceList, receive };

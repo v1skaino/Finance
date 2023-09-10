@@ -2,4 +2,11 @@ type BalanceListDTO = {
   date: string;
 };
 
-export type { BalanceListDTO };
+type ReceiveDTO = {
+  description: string;
+  type: "receita" | "despesa";
+  value: number;
+  date: string;
+};
+
+export type { BalanceListDTO, ReceiveDTO };

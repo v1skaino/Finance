@@ -13,4 +13,8 @@ const formatCurrency = (currency: number) => {
   }).format(currency);
 };
 
-export { formatCurrency, isIOS, validateEmail };
+const maskOnlyNumbers = (numbers: string) => {
+  return numbers.replace(/[^0-9]/g, "");
+};
+
+export { formatCurrency, isIOS, maskOnlyNumbers, validateEmail };
