@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components/native";
-import { Input } from "../../shared/components/input/input";
-import { isIOS } from "../../shared/utils/helper";
+import { Input } from "../../../shared/components/input/input";
+import { isIOS } from "../../../shared/utils/helper";
 import { SignInViewModel } from "./model";
 import { useSignInViewModel } from "./view.model";
 

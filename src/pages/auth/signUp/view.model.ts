@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { signUp } from "../../shared/repositories/auth/auth.repository";
-import { validateEmail } from "../../shared/utils/helper";
-import { errorToast, successToast } from "../../shared/utils/toast";
+import { signUp } from "../../../shared/repositories/auth/auth.repository";
+import { validateEmail } from "../../../shared/utils/helper";
+import { errorToast, successToast } from "../../../shared/utils/toast";
 import { SignUpModel, UseSignUpViewModel } from "./model";
 
 const useSignUpViewModel = ({

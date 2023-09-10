@@ -1,2 +1,2 @@
-export { SignInView } from "./signIn/view";
-export { SignUpView } from "./signUp/view";
+export { SignInView } from "./auth/signIn/view";
+export { SignUpView } from "./auth/signUp/view";

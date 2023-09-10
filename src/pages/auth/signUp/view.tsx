@@ -1,8 +1,8 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
-import { Input } from "../../shared/components/input/input";
-import { isIOS } from "../../shared/utils/helper";
+import { Input } from "../../../shared/components/input/input";
+import { isIOS } from "../../../shared/utils/helper";
 import { SignInViewModel } from "../signIn/model";
 import { useSignUpViewModel } from "./view.model";
 
