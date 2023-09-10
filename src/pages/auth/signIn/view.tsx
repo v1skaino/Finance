@@ -14,7 +14,7 @@ export function SignInView({ navigation }: SignInViewModel): React.JSX.Element {
   return (
     <Background>
       <Wrapper behavior={isIOS() ? "padding" : undefined} enabled>
-        <Logo source={require("../../../assets/Logo.png")} />
+        <Logo source={require("../../../../assets/Logo.png")} />
         <InputWrapper>
           <Input placeholder="Email" />
         </InputWrapper>
