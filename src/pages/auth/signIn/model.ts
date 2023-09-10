@@ -1,8 +1,18 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { Dispatch, SetStateAction } from "react";
 
-type Methods = { navigateToSignUp: () => void };
+type Methods = {
+  navigateToSignUp: () => void;
+  setPassword: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  submit: () => Promise<void>;
+};
 
-type State = {};
+type State = {
+  email: string;
+  password: string;
+  loader: boolean;
+};
 
 type SignInModel = {
   state: State;

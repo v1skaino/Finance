@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator } from "react-native";
 import { styled } from "styled-components/native";
 import { Input } from "../../../shared/components/input/input";
 import { isIOS } from "../../../shared/utils/helper";
@@ -7,8 +8,8 @@ import { useSignInViewModel } from "./view.model";
 
 export function SignInView({ navigation }: SignInViewModel): React.JSX.Element {
   const {
-    methods: { navigateToSignUp },
-    state: {},
+    methods: { navigateToSignUp, setEmail, setPassword, submit },
+    state: { email, password, loader },
   } = useSignInViewModel({ navigation });
 
   return (
@@ -16,17 +17,20 @@ export function SignInView({ navigation }: SignInViewModel): React.JSX.Element {
       <Wrapper behavior={isIOS() ? "padding" : undefined} enabled>
         <Logo source={require("../../../../assets/Logo.png")} />
         <InputWrapper>
-          <Input placeholder="Email" />
+          <Input placeholder="Email" value={email} onChangeText={setEmail} />
         </InputWrapper>
         <InputWrapper>
           <Input
             placeholder="Senha"
             textContentType="password"
             secureTextEntry
+            value={password}
+            onChangeText={setPassword}
           />
         </InputWrapper>
-        <SubmitButton activeOpacity={0.8}>
-          <SubmitText>Entrar</SubmitText>
+        <SubmitButton activeOpacity={0.8} onPress={submit} disabled={loader}>
+          {loader && <ActivityIndicator size={20} color="#fff" />}
+          {!loader && <SubmitText>Entrar</SubmitText>}
         </SubmitButton>
         <Link onPress={navigateToSignUp}>
           <LinkText>Criar uma conta!</LinkText>

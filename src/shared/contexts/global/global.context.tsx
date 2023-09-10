@@ -1,21 +1,21 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { debug } from "../../utils/debug";
-import { GlobalProviderType, GlobalStateType } from "./types";
+import { GlobalProviderType, GlobalStateType, UserType } from "./types";
 
 export const GlobalStateCtx = createContext<GlobalStateType>(
   {} as GlobalStateType,
 );
 
 const GlobalProvider = ({ children }: GlobalProviderType) => {
-  const [username, setUsername] = useState<string>("");
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const globalProviderValues = useMemo(() => {
     return {
-      state: { username, isLoading },
-      methods: { setUsername, setIsLoading },
+      state: { user, isLoading, authenticated: !!user },
+      methods: { setUser, setIsLoading },
     };
-  }, [username, setUsername]);
+  }, [user, setUser]);
 
   debug.globalState(globalProviderValues?.state, "Global", "#8F2D56");
 

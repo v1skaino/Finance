@@ -5,17 +5,20 @@ import {
   InternalAxiosRequestConfig,
 } from "axios";
 
+import { AsyncStorageService } from "../services/AsyncStorage";
 import { debug } from "../utils/debug";
 
 const { globalState: logs } = debug;
+const { getItem } = AsyncStorageService;
 
-const onRequest = (
+const onRequest = async (
   config: InternalAxiosRequestConfig,
-): InternalAxiosRequestConfig => {
+): Promise<InternalAxiosRequestConfig<any>> => {
+  const token = await getItem("@finance_token__");
   const { data, url } = config;
   logs({ data, url }, "REQUEST", "#4867e5");
-  // if (!token || !config.headers) return config;
-  // config.headers.Authorization = `Bearer ${token}`;
+  if (!token || !config.headers) return config;
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 };
 

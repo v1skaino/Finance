@@ -4,4 +4,9 @@ type SignUpDTO = {
   password: string;
 };
 
-export type { SignUpDTO };
+type SignInDTO = {
+  email: string;
+  password: string;
+};
+
+export type { SignInDTO, SignUpDTO };
