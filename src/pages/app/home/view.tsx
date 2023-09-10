@@ -1,5 +1,14 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { useGlobal } from "../../../shared/contexts/global/global.context";
 
 export function HomeView(): React.JSX.Element {
-  return <View></View>;
+  const {
+    state: { user },
+  } = useGlobal();
+
+  return (
+    <View>
+      <Text>{JSON.stringify(user)}</Text>
+    </View>
+  );
 }

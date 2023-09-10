@@ -10,4 +10,8 @@ const signIn = async (requestBody: SignInDTO) => {
   return await client.post("login", requestBody);
 };
 
-export { signIn, signUp };
+const loadUserData = async () => {
+  return await client.get("me");
+};
+
+export { loadUserData, signIn, signUp };

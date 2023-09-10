@@ -9,12 +9,12 @@ import { Routes } from "./src/shared/routes/routes";
 export default function App() {
   return (
     <Fragment>
-      <NavigationContainer>
-        <GlobalProvider>
+      <GlobalProvider>
+        <NavigationContainer>
           <StatusBar backgroundColor="#F0F4FF" style="dark" />
           <Routes />
-        </GlobalProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </GlobalProvider>
       <Toast />
     </Fragment>
   );
