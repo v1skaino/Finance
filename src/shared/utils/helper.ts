@@ -7,4 +7,10 @@ const validateEmail = (email: string) => {
   return email.match(isEmailRegex);
 };
 
-export { isIOS, validateEmail };
+const formatCurrency = (currency: number) => {
+  return new Intl.NumberFormat("pt-BR", {
+    minimumFractionDigits: 2,
+  }).format(currency);
+};
+
+export { formatCurrency, isIOS, validateEmail };
