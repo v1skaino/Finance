@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from "react";
+import { debug } from "../../utils/debug";
 import { GlobalProviderType, GlobalStateType } from "./types";
 
 export const GlobalStateCtx = createContext<GlobalStateType>(
@@ -11,6 +12,8 @@ const GlobalProvider = ({ children }: GlobalProviderType) => {
   const globalProviderValues = useMemo(() => {
     return { state: { username }, methods: { setUsername } };
   }, [username, setUsername]);
+
+  debug.globalState(globalProviderValues?.state, "Global", "#8F2D56");
 
   return (
     <GlobalStateCtx.Provider value={globalProviderValues}>
