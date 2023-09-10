@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../shared/repositories/auth/auth.repository";
 import { validateEmail } from "../../shared/utils/helper";
-import { errorToast, infoToast, successToast } from "../../shared/utils/toast";
+import { errorToast, successToast } from "../../shared/utils/toast";
 import { SignUpModel, UseSignUpViewModel } from "./model";
 
 const useSignUpViewModel = ({
@@ -11,17 +11,26 @@ const useSignUpViewModel = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loader, setLoader] = useState(false);
+  const [formValidator, setFormValidator] = useState({
+    name: false,
+    email: { error: false, message: "" },
+    password: false,
+  });
 
   const isValid = () => {
-    if (!name || !password || !email) {
-      infoToast("Info", "Preencha os campos corretamente!");
-      return false;
-    }
+    setFormValidator({
+      name: !name,
+      email: {
+        error: !email || !validateEmail(email),
+        message:
+          email && !validateEmail(email)
+            ? "Preencha o email corretamente!"
+            : "Campo obrigatório!",
+      },
+      password: !password,
+    });
 
-    if (!validateEmail(email)) {
-      infoToast("Info", "Por favor adicione um email válido!");
-      return false;
-    }
+    if (!name || !password || !email || !validateEmail(email)) return false;
 
     return true;
   };
@@ -41,7 +50,7 @@ const useSignUpViewModel = ({
   };
 
   return {
-    state: { name, email, password, loader },
+    state: { name, email, password, loader, formValidator },
     methods: { setName, setEmail, setPassword, submit },
   };
 };

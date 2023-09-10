@@ -1,13 +1,14 @@
 import React from "react";
 import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
+import { Input } from "../../shared/components/input/input";
 import { isIOS } from "../../shared/utils/helper";
 import { SignInViewModel } from "../signIn/model";
 import { useSignUpViewModel } from "./view.model";
 
 export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
   const {
-    state: { email, name, password, loader },
+    state: { email, name, password, loader, formValidator },
     methods: { setEmail, setName, setPassword, submit },
   } = useSignUpViewModel({ navigation });
 
@@ -15,10 +16,21 @@ export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
     <Background>
       <Wrapper behavior={isIOS() ? "padding" : undefined} enabled>
         <InputWrapper>
-          <Input placeholder="Nome" value={name} onChangeText={setName} />
+          <Input
+            placeholder="Nome"
+            value={name}
+            onChangeText={setName}
+            error={formValidator.name}
+          />
         </InputWrapper>
         <InputWrapper>
-          <Input placeholder="Email" value={email} onChangeText={setEmail} />
+          <Input
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            error={formValidator.email.error}
+            errorMessage={formValidator.email.message}
+          />
         </InputWrapper>
         <InputWrapper>
           <Input
@@ -27,6 +39,7 @@ export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
             textContentType="password"
             value={password}
             onChangeText={setPassword}
+            error={formValidator.password}
           />
         </InputWrapper>
         <SubmitButton disabled={loader} activeOpacity={0.8} onPress={submit}>
@@ -51,16 +64,8 @@ const Wrapper = styled.KeyboardAvoidingView`
 
 const InputWrapper = styled.View`
   flex-direction: row;
-`;
-
-const Input = styled.TextInput`
-  background-color: #fff;
-  width: 90%;
-  font-size: 17px;
-  padding: 10px;
-  border-radius: 8px;
-  color: #121212;
   margin-bottom: 15px;
+  width: 90%;
 `;
 
 const SubmitButton = styled.TouchableOpacity`

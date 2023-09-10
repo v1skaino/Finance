@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "styled-components/native";
+import { Input } from "../../shared/components/input/input";
 import { isIOS } from "../../shared/utils/helper";
 import { SignInViewModel } from "./model";
 import { useSignInViewModel } from "./view.model";
@@ -52,16 +53,8 @@ const Logo = styled.Image`
 
 const InputWrapper = styled.View`
   flex-direction: row;
-`;
-
-const Input = styled.TextInput`
-  background-color: #fff;
-  width: 90%;
-  font-size: 17px;
-  padding: 10px;
-  border-radius: 8px;
-  color: #121212;
   margin-bottom: 15px;
+  width: 90%;
 `;
 
 const SubmitButton = styled.TouchableOpacity`
