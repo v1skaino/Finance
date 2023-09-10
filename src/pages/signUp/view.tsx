@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import { isIOS } from "../../shared/utils/helper";
 import { SignInViewModel } from "../signIn/model";
@@ -6,7 +7,7 @@ import { useSignUpViewModel } from "./view.model";
 
 export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
   const {
-    state: { email, name, password },
+    state: { email, name, password, loader },
     methods: { setEmail, setName, setPassword, submit },
   } = useSignUpViewModel({ navigation });
 
@@ -28,8 +29,9 @@ export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
             onChangeText={setPassword}
           />
         </InputWrapper>
-        <SubmitButton activeOpacity={0.8} onPress={submit}>
-          <SubmitText>Cadastrar</SubmitText>
+        <SubmitButton disabled={loader} activeOpacity={0.8} onPress={submit}>
+          {loader && <ActivityIndicator size={20} color="#fff" />}
+          {!loader && <SubmitText>Cadastrar</SubmitText>}
         </SubmitButton>
       </Wrapper>
     </Background>

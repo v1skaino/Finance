@@ -2,4 +2,9 @@ import { Platform } from "react-native";
 
 const isIOS = () => Platform.OS === "ios";
 
-export { isIOS };
+const validateEmail = (email: string) => {
+  const isEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return email.match(isEmailRegex);
+};
+
+export { isIOS, validateEmail };

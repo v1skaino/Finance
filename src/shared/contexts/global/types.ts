@@ -1,8 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 type GlobalStateType = {
-  state: { username: string };
-  methods: { setUsername: Dispatch<SetStateAction<string>> };
+  state: { username: string; isLoading: boolean };
+  methods: {
+    setUsername: Dispatch<SetStateAction<string>>;
+    setIsLoading: Dispatch<SetStateAction<boolean>>;
+  };
 };
 
 type GlobalProviderType = {

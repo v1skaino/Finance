@@ -7,10 +7,14 @@ export const GlobalStateCtx = createContext<GlobalStateType>(
 );
 
 const GlobalProvider = ({ children }: GlobalProviderType) => {
-  const [username, setUsername] = useState<string>("Teste");
+  const [username, setUsername] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const globalProviderValues = useMemo(() => {
-    return { state: { username }, methods: { setUsername } };
+    return {
+      state: { username, isLoading },
+      methods: { setUsername, setIsLoading },
+    };
   }, [username, setUsername]);
 
   debug.globalState(globalProviderValues?.state, "Global", "#8F2D56");

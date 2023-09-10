@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { GlobalProvider } from "./src/shared/contexts/auth/auth.context";
+import { GlobalProvider } from "./src/shared/contexts/global/global.context";
 import { Routes } from "./src/shared/routes/routes";
 
 export default function App() {

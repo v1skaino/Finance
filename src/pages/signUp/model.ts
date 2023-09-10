@@ -8,7 +8,7 @@ type Methods = {
   submit: () => Promise<void>;
 };
 
-type State = { name: string; email: string; password: string };
+type State = { name: string; email: string; password: string; loader: boolean };
 
 type SignUpModel = {
   state: State;
