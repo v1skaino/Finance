@@ -1,25 +1,34 @@
 import React from "react";
 import styled from "styled-components/native";
 import { isIOS } from "../../shared/utils/helper";
+import { SignInViewModel } from "../signIn/model";
+import { useSignUpViewModel } from "./view.model";
 
-export function SignUpView(): React.JSX.Element {
+export function SignUpView({ navigation }: SignInViewModel): React.JSX.Element {
+  const {
+    state: { email, name, password },
+    methods: { setEmail, setName, setPassword, submit },
+  } = useSignUpViewModel({ navigation });
+
   return (
     <Background>
       <Wrapper behavior={isIOS() ? "padding" : undefined} enabled>
         <InputWrapper>
-          <Input placeholder="Nome" />
+          <Input placeholder="Nome" value={name} onChangeText={setName} />
         </InputWrapper>
         <InputWrapper>
-          <Input placeholder="Email" />
+          <Input placeholder="Email" value={email} onChangeText={setEmail} />
         </InputWrapper>
         <InputWrapper>
           <Input
             placeholder="Senha"
             secureTextEntry
             textContentType="password"
+            value={password}
+            onChangeText={setPassword}
           />
         </InputWrapper>
-        <SubmitButton activeOpacity={0.8}>
+        <SubmitButton activeOpacity={0.8} onPress={submit}>
           <SubmitText>Cadastrar</SubmitText>
         </SubmitButton>
       </Wrapper>
