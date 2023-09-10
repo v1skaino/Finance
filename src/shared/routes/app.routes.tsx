@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HomeView } from "../../pages";
 import { CreateMovementView } from "../../pages/app/createMovement/view";
+import { Drawer } from "../components/drawer";
 
 const AppDrawer = createDrawerNavigator();
 
@@ -17,6 +18,7 @@ function AppRoutes() {
         drawerInactiveBackgroundColor: "#f0f0f0",
         drawerInactiveTintColor: "#121212",
       }}
+      drawerContent={Drawer}
     >
       <AppDrawer.Screen
         name="Home"
@@ -24,7 +26,7 @@ function AppRoutes() {
         options={{ headerTitle: "Minhas movimentações" }}
       />
       <AppDrawer.Screen
-        name="CreateMovement"
+        name="Movimentação"
         component={CreateMovementView}
         options={{ headerTitle: "Nova Movimentação" }}
       />
