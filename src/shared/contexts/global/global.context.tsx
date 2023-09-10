@@ -14,6 +14,11 @@ const GlobalProvider = ({ children }: GlobalProviderType) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const signOut = () => {
+    clear();
+    setUser(null);
+  };
+
   useEffect(() => {
     async function loadStorage() {
       const token = await getItem("@finance_token__");
@@ -40,9 +45,9 @@ const GlobalProvider = ({ children }: GlobalProviderType) => {
   const globalProviderValues = useMemo(() => {
     return {
       state: { user, isLoading, authenticated: !!user },
-      methods: { setUser, setIsLoading },
+      methods: { setUser, setIsLoading, signOut },
     };
-  }, [user, setUser, isLoading, setIsLoading]);
+  }, [user, setUser, isLoading, setIsLoading, signOut]);
 
   debug.globalState(globalProviderValues?.state, "Global", "#8F2D56");
 

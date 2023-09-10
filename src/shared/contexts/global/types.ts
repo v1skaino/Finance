@@ -10,6 +10,7 @@ type GlobalStateType = {
   methods: {
     setUser: Dispatch<SetStateAction<UserType | null>>;
     setIsLoading: Dispatch<SetStateAction<boolean>>;
+    signOut: () => void;
   };
 };
 
