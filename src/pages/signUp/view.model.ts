@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../shared/repositories/auth/auth.repository";
 import { validateEmail } from "../../shared/utils/helper";
+import { errorToast, infoToast, successToast } from "../../shared/utils/toast";
 import { SignUpModel, UseSignUpViewModel } from "./model";
 
 const useSignUpViewModel = ({
@@ -12,8 +13,15 @@ const useSignUpViewModel = ({
   const [loader, setLoader] = useState(false);
 
   const isValid = () => {
-    if (!name || !password || !email) return false;
-    if (!validateEmail(email)) return false;
+    if (!name || !password || !email) {
+      infoToast("Info", "Preencha os campos corretamente!");
+      return false;
+    }
+
+    if (!validateEmail(email)) {
+      infoToast("Info", "Por favor adicione um email válido!");
+      return false;
+    }
 
     return true;
   };
@@ -23,8 +31,10 @@ const useSignUpViewModel = ({
     try {
       setLoader(true);
       await signUp({ name, email, password });
+      successToast("Cadastro", "Cadastro realizado com sucesso!");
       navigation.goBack();
     } catch (error) {
+      errorToast("ERRO", "Ocorreu um erro interno!");
     } finally {
       setLoader(false);
     }
