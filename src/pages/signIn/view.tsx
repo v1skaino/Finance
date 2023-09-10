@@ -15,13 +15,17 @@ export function SignInView({ navigation }: SignInViewModel): React.JSX.Element {
       <Wrapper behavior={isIOS() ? "padding" : undefined} enabled>
         <Logo source={require("../../../assets/Logo.png")} />
         <InputWrapper>
-          <Input placeholder="Seu email" />
+          <Input placeholder="Email" />
         </InputWrapper>
         <InputWrapper>
-          <Input placeholder="Seu email" />
+          <Input
+            placeholder="Senha"
+            textContentType="password"
+            secureTextEntry
+          />
         </InputWrapper>
         <SubmitButton activeOpacity={0.8}>
-          <SubmitText>Acessar</SubmitText>
+          <SubmitText>Entrar</SubmitText>
         </SubmitButton>
         <Link onPress={navigateToSignUp}>
           <LinkText>Criar uma conta!</LinkText>
