@@ -7,14 +7,12 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer/lib/typesc
 import { useGlobal } from "../../contexts/global/global.context";
 
 export const Drawer = (props: DrawerContentComponentProps) => {
-  const {
-    methods: { signOut },
-  } = useGlobal();
+  const { methods } = useGlobal();
 
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem label="Sair" onPress={signOut} />
+      <DrawerItem label="Sair" onPress={methods?.signOut} />
     </DrawerContentScrollView>
   );
 };

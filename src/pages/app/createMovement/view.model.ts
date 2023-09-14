@@ -52,7 +52,6 @@ const useCreateMovementViewModel = ({
     setLoader(true);
 
     try {
-      console.log(createRequestBody());
       await receive(createRequestBody());
       successToast("Sucesso!", "Movimentação adicionada com sucesso!");
       resetValues();
