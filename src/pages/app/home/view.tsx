@@ -13,6 +13,7 @@ import { useHomeViewModel } from "./view.model";
 export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
   const {
     state: { balanceList, transactions },
+    methods: { deleteTransaction },
   } = useHomeViewModel({ navigation });
 
   const renderItem: ListRenderItem<BalanceDataModel> = ({ item }) => (
@@ -21,7 +22,7 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
 
   const renderItemTransaction: ListRenderItem<TransactionsDataModel> = ({
     item,
-  }) => <TransactionTile {...item} />;
+  }) => <TransactionTile {...item} deleteClick={deleteTransaction} />;
 
   return (
     <Background>
@@ -35,12 +36,13 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
       <Transactions>
         <Filter>
           <Ionicons name="filter" size={18} />
-          <Text style={{ fontSize: 16 }}>Últimas Movimentações</Text>
+          <Text style={{ fontSize: 18 }}>Últimas Movimentações</Text>
         </Filter>
         <ListTransactions
           data={transactions}
           renderItem={renderItemTransaction}
           showsVerticalScrollIndicator={false}
+          keyExtractor={(item: TransactionsDataModel) => item.id}
         />
       </Transactions>
     </Background>
@@ -65,7 +67,6 @@ const Transactions = styled.View`
 `;
 
 const ListTransactions = styled(FlatList<TransactionsDataModel>)`
-  padding: 10px 0px;
   background-color: #fff;
   border-radius: 5px;
 `;

@@ -4,7 +4,9 @@ import {
   TransactionsDataModel,
 } from "../../../shared/repositories/app/app.model";
 
-type Methods = {};
+type Methods = {
+  deleteTransaction: (id: string) => void;
+};
 
 type State = {
   balanceList: BalanceDataModel[];

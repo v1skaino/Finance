@@ -37,9 +37,13 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
     getMovements();
   }, [getMovements, isFocused]);
 
+  const deleteTransaction = (id: string) => {
+    console.log(id);
+  };
+
   return {
     state: { balanceList, transactions },
-    methods: {},
+    methods: { deleteTransaction },
   };
 };
 

@@ -2,9 +2,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import moment from "moment";
 import "moment/locale/pt-br";
 import { Text } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { TransactionsDataModel } from "../../repositories/app/app.model";
 import { capitalizeFirstLetter, formatCurrency } from "../../utils/helper";
+
+interface TransactionTileType extends TransactionsDataModel {
+  deleteClick: (id: string) => void;
+}
 
 type Config = {
   icon: "trending-down" | "trending-up";
@@ -20,11 +25,13 @@ const renderIcon = (type: TransactionsDataModel["type"]) => {
 };
 
 export const TransactionTile = ({
+  id,
   type,
   description,
   date,
   value,
-}: TransactionsDataModel) => {
+  deleteClick,
+}: TransactionTileType) => {
   const operator = () => {
     return type == "despesa" ? "-" : "+";
   };
@@ -34,33 +41,45 @@ export const TransactionTile = ({
     return moment(date, "DD/MM/YYYY").format("DD MMM YYYY");
   };
 
+  const rightSipe = () => {
+    return (
+      <DeleteButton onPress={() => deleteClick(id)}>
+        <Ionicons name="trash" size={22} color="#fff" />
+      </DeleteButton>
+    );
+  };
+
   return (
-    <Wrapper>
-      <Row>
-        <LeftSideWrapper>
-          <IconWrapper>{renderIcon(type)}</IconWrapper>
-          <DescriptionWrapper>
-            <Text numberOfLines={1} ellipsizeMode="tail">
-              {description}
-            </Text>
-            <Type>{capitalizeFirstLetter(type)}</Type>
-          </DescriptionWrapper>
-        </LeftSideWrapper>
-        <RightSideWrapper>
-          <Currency $type={type}>
-            {operator()} R$ {formatCurrency(value ?? 0)}
-          </Currency>
-          <DateWrapper>{formatDate(date)}</DateWrapper>
-        </RightSideWrapper>
-      </Row>
-      <Separator />
-    </Wrapper>
+    <Swipeable renderRightActions={rightSipe}>
+      <Wrapper>
+        <Row>
+          <LeftSideWrapper>
+            <IconWrapper>{renderIcon(type)}</IconWrapper>
+            <DescriptionWrapper>
+              <Text numberOfLines={1} ellipsizeMode="tail">
+                {description}
+              </Text>
+              <Type>{capitalizeFirstLetter(type)}</Type>
+            </DescriptionWrapper>
+          </LeftSideWrapper>
+          <RightSideWrapper>
+            <Currency $type={type}>
+              {operator()} R$ {formatCurrency(value ?? 0)}
+            </Currency>
+            <DateWrapper>{formatDate(date)}</DateWrapper>
+          </RightSideWrapper>
+        </Row>
+        <Separator />
+      </Wrapper>
+    </Swipeable>
   );
 };
 
 const Wrapper = styled.View`
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   flex-direction: column;
+  background-color: #fff;
+  justify-content: space-between;
 `;
 
 const Row = styled.View`
@@ -111,4 +130,11 @@ const Separator = styled.View`
   height: 1px;
   background-color: #dddbdb;
   margin-top: 10px;
+`;
+
+const DeleteButton = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  background-color: red;
 `;
