@@ -1,32 +1,44 @@
 import { useIsFocused } from "@react-navigation/native";
-import { format } from "date-fns";
+import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
-import { getBalanceList } from "../../../shared/repositories/app/app.repository";
+import {
+  BalanceDataModel,
+  TransactionsDataModel,
+} from "../../../shared/repositories/app/app.model";
+import {
+  getBalanceList,
+  getTransactions,
+} from "../../../shared/repositories/app/app.repository";
 import { HomeModel, UseHomeViewModel } from "./model";
 
 const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
   const [balanceList, setBalanceList] = useState<BalanceDataModel[]>([]);
   const [movementDate, setMovementDate] = useState(new Date());
+  const [transactions, setTransactions] = useState<TransactionsDataModel[]>([]);
   const isFocused = useIsFocused();
 
   const getMovements = useCallback(async () => {
-    const formattedData = format(movementDate, "dd/MM/yyyy");
+    const date = moment(movementDate).format("DD/MM/YYYY");
 
-    const { data }: { data: BalanceDataModel[] } = await getBalanceList({
-      date: formattedData,
-    });
+    const [balance, transactions] = await Promise.all([
+      getBalanceList({ date }),
+      getTransactions({ date }),
+    ]);
 
-    setBalanceList(data);
+    const { data: balanceData }: { data: BalanceDataModel[] } = balance;
+    const { data: transactionsData }: { data: TransactionsDataModel[] } =
+      transactions;
 
-    console.log(data);
-  }, [movementDate, setBalanceList]);
+    setBalanceList(balanceData);
+    setTransactions(transactionsData);
+  }, [setBalanceList, setTransactions]);
 
   useEffect(() => {
     getMovements();
   }, [getMovements, isFocused]);
 
   return {
-    state: { balanceList },
+    state: { balanceList, transactions },
     methods: {},
   };
 };

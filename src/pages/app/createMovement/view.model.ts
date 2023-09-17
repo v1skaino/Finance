@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import moment from "moment";
 import { useState } from "react";
 import { Keyboard } from "react-native";
 import { useATMInput } from "../../../shared/hooks/useATM";
@@ -36,7 +36,7 @@ const useCreateMovementViewModel = ({
       description,
       type,
       value: formatCurrencyToSubmit(),
-      date: format(new Date(), "dd/MM/yyyy"),
+      date: moment().format("DD/MM/YYYY"),
     };
   };
 

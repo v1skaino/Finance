@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { styled } from "styled-components/native";
+import { BalanceDataModel } from "../../repositories/app/app.model";
 import { formatCurrency } from "../../utils/helper";
 
 export const BalanceListItem = ({ saldo, tag }: BalanceDataModel) => {

@@ -9,4 +9,8 @@ type ReceiveDTO = {
   date: string;
 };
 
-export type { BalanceListDTO, ReceiveDTO };
+type TransactionsDTO = {
+  date: string;
+};
+
+export type { BalanceListDTO, ReceiveDTO, TransactionsDTO };

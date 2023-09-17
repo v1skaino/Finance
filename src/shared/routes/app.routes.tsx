@@ -23,7 +23,10 @@ function AppRoutes() {
       <AppDrawer.Screen
         name="Home"
         component={HomeView}
-        options={{ headerTitle: "Minhas movimentações" }}
+        options={{
+          headerTitle: "Minhas movimentações",
+          headerStyle: { backgroundColor: "#fff" },
+        }}
       />
       <AppDrawer.Screen
         name="Movimentação"
