@@ -86,7 +86,7 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
   };
 
   return {
-    state: { balanceList, transactions, loader },
+    state: { balanceList, transactions, loader, movementDate },
     methods: { deleteTransaction },
   };
 };

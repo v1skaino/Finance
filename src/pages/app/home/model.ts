@@ -12,6 +12,7 @@ type State = {
   balanceList: BalanceDataModel[];
   transactions: TransactionsDataModel[];
   loader: boolean;
+  movementDate: Date;
 };
 
 type HomeModel = {

@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { styled } from "styled-components/native";
 import { BalanceListItem } from "../../../shared/components/balanceItem/balanceItem";
+import { NoDataFound } from "../../../shared/components/noDataFound/noDataFound";
 import { TransactionTile } from "../../../shared/components/transactionTile/transactionTile";
 import {
   BalanceDataModel,
@@ -17,7 +18,7 @@ import { useHomeViewModel } from "./view.model";
 
 export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
   const {
-    state: { balanceList, transactions, loader },
+    state: { balanceList, transactions, loader, movementDate },
     methods: { deleteTransaction },
   } = useHomeViewModel({ navigation });
 
@@ -48,6 +49,7 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
           renderItem={renderItemTransaction}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: TransactionsDataModel) => item.id}
+          ListEmptyComponent={<NoDataFound date={movementDate} />}
         />
       </Transactions>
       {loader && (
