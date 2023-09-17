@@ -57,6 +57,12 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
     );
   };
 
+  const refreshBalanceList = async () => {
+    const date = moment(movementDate).format("DD/MM/YYYY");
+    const { data } = await getBalanceList({ date });
+    setBalanceList(data);
+  };
+
   const removeDeletedItemFromArray = (id: string) => {
     setTransactions(transactions.filter((item) => item.id != id));
   };
@@ -66,6 +72,7 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
       setLoader(true);
       await fetchDeleteTransactions({ item_id: id });
       removeDeletedItemFromArray(id);
+      refreshBalanceList();
       successToast("Sucesso!", "Registro removido com sucesso!");
     } catch {
       errorToast("ERRO", "Ocorreu um erro interno!");
