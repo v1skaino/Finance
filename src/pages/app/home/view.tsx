@@ -1,5 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { FlatList, ListRenderItem, Text } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  ListRenderItem,
+  Text,
+} from "react-native";
 import { styled } from "styled-components/native";
 import { BalanceListItem } from "../../../shared/components/balanceItem/balanceItem";
 import { TransactionTile } from "../../../shared/components/transactionTile/transactionTile";
@@ -12,7 +17,7 @@ import { useHomeViewModel } from "./view.model";
 
 export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
   const {
-    state: { balanceList, transactions },
+    state: { balanceList, transactions, loader },
     methods: { deleteTransaction },
   } = useHomeViewModel({ navigation });
 
@@ -45,6 +50,11 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
           keyExtractor={(item: TransactionsDataModel) => item.id}
         />
       </Transactions>
+      {loader && (
+        <Loader>
+          <ActivityIndicator size="large" color="#131313" />
+        </Loader>
+      )}
     </Background>
   );
 }
@@ -74,4 +84,18 @@ const ListTransactions = styled(FlatList<TransactionsDataModel>)`
 const Filter = styled.TouchableOpacity`
   flex-direction: row;
   gap: 5px;
+`;
+
+const Loader = styled.View`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
 `;

@@ -11,4 +11,8 @@ type TransactionsDataModel = {
   date: string;
 };
 
-export type { BalanceDataModel, TransactionsDataModel };
+type TransactionsDeleteDTO = {
+  item_id: string;
+};
+
+export type { BalanceDataModel, TransactionsDataModel, TransactionsDeleteDTO };

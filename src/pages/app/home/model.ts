@@ -11,6 +11,7 @@ type Methods = {
 type State = {
   balanceList: BalanceDataModel[];
   transactions: TransactionsDataModel[];
+  loader: boolean;
 };
 
 type HomeModel = {
