@@ -1,4 +1,5 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { Dispatch, SetStateAction } from "react";
 import {
   BalanceDataModel,
   TransactionsDataModel,
@@ -6,6 +7,8 @@ import {
 
 type Methods = {
   deleteTransaction: (id: string) => void;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  filterMovementDate: (selectedDate: Date) => Promise<void>;
 };
 
 type State = {
@@ -13,6 +16,7 @@ type State = {
   transactions: TransactionsDataModel[];
   loader: boolean;
   movementDate: Date;
+  showModal: boolean;
 };
 
 type HomeModel = {

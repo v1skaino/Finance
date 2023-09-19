@@ -11,6 +11,7 @@ import {
   getBalanceList,
   getTransactions,
 } from "../../../shared/repositories/app/app.repository";
+import { getTimeZoneDiff } from "../../../shared/utils/helper";
 import { errorToast, successToast } from "../../../shared/utils/toast";
 import { HomeModel, UseHomeViewModel } from "./model";
 
@@ -19,10 +20,11 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
   const [movementDate, setMovementDate] = useState(new Date());
   const [transactions, setTransactions] = useState<TransactionsDataModel[]>([]);
   const [loader, setLoader] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const isFocused = useIsFocused();
 
   const getMovements = useCallback(async () => {
-    const date = moment(movementDate).format("DD/MM/YYYY");
+    const date = getTimeZoneDiff(movementDate);
 
     const [balance, transactions] = await Promise.all([
       getBalanceList({ date }),
@@ -85,9 +87,24 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
     showConfirmDialog(id);
   };
 
+  const filterMovementDate = async (selectedDate: Date) => {
+    try {
+      setLoader(true);
+      const date = getTimeZoneDiff(selectedDate);
+      const { data } = await getTransactions({ date });
+      setTransactions(data);
+    } catch {
+      setTransactions([]);
+      errorToast("ERRO", "Ocorreu um erro interno!");
+    } finally {
+      setMovementDate(selectedDate);
+      setLoader(false);
+    }
+  };
+
   return {
-    state: { balanceList, transactions, loader, movementDate },
-    methods: { deleteTransaction },
+    state: { balanceList, transactions, loader, movementDate, showModal },
+    methods: { deleteTransaction, setShowModal, filterMovementDate },
   };
 };
 

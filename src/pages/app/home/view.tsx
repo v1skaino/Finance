@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { styled } from "styled-components/native";
 import { BalanceListItem } from "../../../shared/components/balanceItem/balanceItem";
+import { CalendarModal } from "../../../shared/components/calendarModal/calendarModal";
 import { NoDataFound } from "../../../shared/components/noDataFound/noDataFound";
 import { TransactionTile } from "../../../shared/components/transactionTile/transactionTile";
 import {
@@ -17,10 +18,9 @@ import { HomeViewModel } from "./model";
 import { useHomeViewModel } from "./view.model";
 
 export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
-  const {
-    state: { balanceList, transactions, loader, movementDate },
-    methods: { deleteTransaction },
-  } = useHomeViewModel({ navigation });
+  const { state, methods } = useHomeViewModel({ navigation });
+  const { balanceList, transactions, loader, movementDate, showModal } = state;
+  const { deleteTransaction, setShowModal, filterMovementDate } = methods;
 
   const renderItem: ListRenderItem<BalanceDataModel> = ({ item }) => (
     <BalanceListItem {...item} />
@@ -40,7 +40,7 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
         keyExtractor={(item: BalanceDataModel) => item.tag}
       />
       <Transactions>
-        <Filter>
+        <Filter onPress={() => setShowModal(true)}>
           <Ionicons name="filter" size={18} />
           <Text style={{ fontSize: 18 }}>Últimas Movimentações</Text>
         </Filter>
@@ -57,6 +57,13 @@ export function HomeView({ navigation }: HomeViewModel): React.JSX.Element {
           <ActivityIndicator size="large" color="#131313" />
         </Loader>
       )}
+      <CalendarModal
+        {...methods}
+        visible={showModal}
+        animationType="fade"
+        transparent
+        filter={filterMovementDate}
+      />
     </Background>
   );
 }

@@ -9,7 +9,7 @@ import styled from "styled-components/native";
 import { useGlobal } from "../../contexts/global/global.context";
 
 export const Drawer = (props: DrawerContentComponentProps) => {
-  const { methods, state } = useGlobal();
+  const { methods } = useGlobal();
 
   return (
     <DrawerContentScrollView {...props}>

@@ -34,10 +34,17 @@ const capitalizeFirstLetter = (word: string) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
+const getTimeZoneDiff = (date: Date) => {
+  return moment(date.valueOf() + date.getTimezoneOffset() * 60 * 1000).format(
+    "DD/MM/YYYY",
+  );
+};
+
 export {
   capitalizeFirstLetter,
   formatCurrency,
   generateGreetings,
+  getTimeZoneDiff,
   isIOS,
   maskOnlyNumbers,
   validateEmail,

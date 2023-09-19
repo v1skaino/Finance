@@ -1,12 +1,13 @@
 import moment from "moment";
 import styled from "styled-components/native";
+import { getTimeZoneDiff } from "../../utils/helper";
 
 type NoDataFoundProps = {
   date: Date;
 };
 
 export const NoDataFound = ({ date }: NoDataFoundProps) => {
-  const currentDate = moment(date);
+  const currentDate = moment(getTimeZoneDiff(date), "DD/MM/YYYY");
 
   return (
     <Wrapper>
