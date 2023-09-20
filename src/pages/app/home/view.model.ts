@@ -93,6 +93,7 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
       const date = getTimeZoneDiff(selectedDate);
       const { data } = await getTransactions({ date });
       setTransactions(data);
+      refreshBalanceList();
     } catch {
       setTransactions([]);
       errorToast("ERRO", "Ocorreu um erro interno!");
