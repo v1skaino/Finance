@@ -1,4 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
+import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 import {
@@ -23,11 +24,14 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
   const isFocused = useIsFocused();
 
   const getMovements = useCallback(async () => {
-    const date = getTimeZoneDiff(movementDate);
+    const date = getTimeZoneDiff(new Date());
+    const formattedDate = moment(date, "DD/MM/YYYY")
+      .subtract(1, "day")
+      .format("DD/MM/YYYY");
 
     const [balance, transactions] = await Promise.all([
-      getBalanceList({ date }),
-      getTransactions({ date }),
+      getBalanceList({ date: formattedDate }),
+      getTransactions({ date: formattedDate }),
     ]);
 
     const { data: balanceData }: { data: BalanceDataModel[] } = balance;
