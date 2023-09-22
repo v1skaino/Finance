@@ -1,5 +1,4 @@
 import { useIsFocused } from "@react-navigation/native";
-import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 import {
@@ -53,14 +52,16 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
         },
         {
           text: "Sim",
-          onPress: () => fetchToDelete(id),
+          onPress: () => {
+            fetchToDelete(id);
+          },
         },
       ],
     );
   };
 
   const refreshBalanceList = async () => {
-    const date = moment(movementDate).format("DD/MM/YYYY");
+    const date = getTimeZoneDiff(movementDate);
     const { data } = await getBalanceList({ date });
     setBalanceList(data);
   };
