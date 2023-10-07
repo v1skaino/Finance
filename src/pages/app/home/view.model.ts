@@ -25,9 +25,7 @@ const useHomeViewModel = ({ navigation }: UseHomeViewModel): HomeModel => {
 
   const getMovements = useCallback(async () => {
     const date = getTimeZoneDiff(new Date());
-    const formattedDate = moment(date, "DD/MM/YYYY")
-      .subtract(1, "day")
-      .format("DD/MM/YYYY");
+    const formattedDate = moment(date, "DD/MM/YYYY").format("DD/MM/YYYY");
 
     const [balance, transactions] = await Promise.all([
       getBalanceList({ date: formattedDate }),
